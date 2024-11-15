@@ -139,6 +139,13 @@ export default {
       if (_liffState) {
         const _decodedState = decodeURIComponent(_liffState)
         console.log('getBotUserIdFromUrl _decodedState', _decodedState)
+
+        // ใช้ URLSearchParams เพื่อแยกค่าจาก _decodedState
+        const _stateParams = new URLSearchParams(_decodedState)
+
+        // ดึงค่า ads_id
+        const ads_id = _stateParams.get('ads_id')
+        console.log('ads_id:===>', ads_id) // ค่านี้ควรเป็น A002_171.5.183.34
       }
     },
     async getBotUserIdFromUrl() {
@@ -162,8 +169,8 @@ export default {
 
           // ใช้ URLSearchParams ดึงค่า botUserId จาก liff.state ที่ decode แล้ว
           const stateParams = new URLSearchParams(decodedState)
-          // this.botUserId = stateParams.get('botUserId')
-          this.botUserId = stateParams.get('ads_id')
+          this.botUserId = stateParams.get('botUserId')
+
           console.log('getBotUserIdFromUrl botUserId ', this.botUserId)
           this.updateLineBotUserId(this.botUserId)
 
