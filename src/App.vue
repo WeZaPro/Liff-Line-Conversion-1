@@ -148,7 +148,8 @@ export default {
 
           // ใช้ URLSearchParams ดึงค่า botUserId จาก liff.state ที่ decode แล้ว
           const stateParams = new URLSearchParams(decodedState)
-          this.botUserId = stateParams.get('botUserId')
+          // this.botUserId = stateParams.get('botUserId')
+          this.botUserId = stateParams.get('ads_id')
           console.log('getBotUserIdFromUrl botUserId ', this.botUserId)
           this.updateLineBotUserId(this.botUserId)
 
