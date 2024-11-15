@@ -129,19 +129,20 @@ export default {
         console.error('LIFF initialization failed:', error)
       }
     },
+    testState() {
+      // test
+      const _queryString = window.location.search
+      const liffStateMatch = _queryString.match(/liff.state=([^&]*)/) // หา liff.state ใน query string
+      const _liffState = liffStateMatch ? liffStateMatch[1] : null // ถ้ามี match ก็เก็บค่า
+      console.log('TEST----->  liffState ', _liffState)
+
+      if (_liffState) {
+        const _decodedState = decodeURIComponent(_liffState)
+        console.log('getBotUserIdFromUrl _decodedState', _decodedState)
+      }
+    },
     async getBotUserIdFromUrl() {
       try {
-        // test
-        const _queryString = window.location.search
-        const liffStateMatch = _queryString.match(/liff.state=([^&]*)/) // หา liff.state ใน query string
-        const _liffState = liffStateMatch ? liffStateMatch[1] : null // ถ้ามี match ก็เก็บค่า
-        console.log('TEST----->  liffState ', _liffState)
-
-        if (liffState) {
-          const decodedState = decodeURIComponent(liffState)
-          console.log('getBotUserIdFromUrl decodedState', decodedState)
-        }
-
         //end test
         //
         // ดึง query string จาก URL
@@ -420,8 +421,7 @@ export default {
     }
   },
   mounted() {
-    // get customer data ******************
-
+    this.testState()
     // this.updateLineBotUserId()
     this.getBotUserIdFromUrl()
     this.findCusDataFromCustomer()
