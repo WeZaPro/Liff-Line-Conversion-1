@@ -131,6 +131,19 @@ export default {
     },
     async getBotUserIdFromUrl() {
       try {
+        // test
+        const _queryString = window.location.search
+        const liffStateMatch = _queryString.match(/liff.state=([^&]*)/) // หา liff.state ใน query string
+        const _liffState = liffStateMatch ? liffStateMatch[1] : null // ถ้ามี match ก็เก็บค่า
+        console.log('TEST----->  liffState ', _liffState)
+
+        if (liffState) {
+          const decodedState = decodeURIComponent(liffState)
+          console.log('getBotUserIdFromUrl decodedState', decodedState)
+        }
+
+        //end test
+        //
         // ดึง query string จาก URL
         const queryString = window.location.search
         const urlParams = new URLSearchParams(queryString)
@@ -160,24 +173,6 @@ export default {
           // ใช้ customer id findOneAndUpdate CUSTOMER (line uid, line bot id , line destination)
 
           const customer_id = await this.findCusIdFromGTM(this.line_userId, this.lineDestination, this.botUserId)
-          // this.findCusIdFromGTM(this.line_userId)
-
-          //-> backend +/findAndUpdateLine
-          // const updateLineData = this.findCusIdAndUpdateLineToGTM(
-          //   cusId,
-          //   this.lineDestination,
-          //   this.botUserId,
-          //   this.line_userId
-          // )
-          //
-          // find this.line_userId  => from GTM data => customerID
-          // find customerID  => from CUSTOMER data => customerID
-          // data update= this.line_userId
-          // data update= this.botUserId
-          // data update= this.lineDestination
-          // console.log('update cus data > lineDestination ', this.lineDestination)
-          // console.log('update cus data > botUserId ', this.botUserId)
-          // console.log('update cus data > line_userId ', this.line_userId)
         }
       } catch (err) {
         console.log('err ', err)
